@@ -15,7 +15,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": false,
+			"recommended": true,
 			"a11y": {
 				"noBlankTarget": "error"
 			},
@@ -64,7 +64,8 @@
 			"style": {
 				"noNamespace": "error",
 				"useAsConstAssertion": "error",
-				"useImportType": "warn"
+				"useImportType": "warn",
+				"useSelfClosingElements": "warn"
 			},
 			"suspicious": {
 				"noAssignInExpressions": "error",
