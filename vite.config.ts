@@ -1,9 +1,10 @@
+import { TanStackRouterVite } from '@tanstack/router-vite-plugin'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
 import { defineConfig } from 'vite'
 
 export default defineConfig(async () => ({
-	plugins: [react()],
+	plugins: [react(), TanStackRouterVite()],
 	clearScreen: false,
 	server: {
 		port: 1420,

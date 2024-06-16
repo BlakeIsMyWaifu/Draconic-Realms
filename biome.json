@@ -49,7 +49,7 @@
 				"noUnsafeOptionalChaining": "error",
 				"noUnusedLabels": "error",
 				"noUnusedPrivateClassMembers": "error",
-				"noUnusedVariables": "error",
+				"noUnusedVariables": "warn",
 				"useArrayLiterals": "off",
 				"useExhaustiveDependencies": "warn",
 				"useHookAtTopLevel": "error",
@@ -151,6 +151,6 @@
 		}
 	],
 	"files": {
-		"ignore": ["src-tauri/*"]
+		"ignore": ["src-tauri/*", "*.gen.ts"]
 	}
 }

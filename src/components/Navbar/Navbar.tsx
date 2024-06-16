@@ -1,35 +1,10 @@
 import { Box, Code, Group, Image, Stack, Text } from '@mantine/core'
-import { IconAxe, IconSettings, IconTower, IconUserShield, IconWorld } from '@tabler/icons-react'
-import { useState } from 'react'
+import { IconAxe, IconHome, IconSettings, IconTower, IconUserShield, IconWorld, type Icon } from '@tabler/icons-react'
+import { Link, type LinkProps } from '@tanstack/react-router'
 import { version } from '~/../package.json'
 import classes from './Navbar.module.css'
 
-const data = [
-	{ link: '', label: 'Town', icon: IconTower },
-	{ link: '', label: 'Realms', icon: IconWorld },
-	{ link: '', label: 'Gear', icon: IconUserShield },
-	{ link: '', label: 'Skills', icon: IconAxe }
-] as const
-
 export default function NavbarSimple() {
-	const [active, setActive] = useState<(typeof data)[number]['label']>(data[0].label)
-
-	const links = data.map(item => (
-		<a
-			className={classes.link}
-			data-active={item.label === active || undefined}
-			href={item.link}
-			key={item.label}
-			onClick={event => {
-				event.preventDefault()
-				setActive(item.label)
-			}}
-		>
-			<item.icon className={classes.linkIcon} stroke={1.5} />
-			<Text>{item.label}</Text>
-		</a>
-	))
-
 	return (
 		<Stack component='nav' p='md' className={classes.navbar}>
 			<Box style={{ flex: 1 }}>
@@ -40,15 +15,32 @@ export default function NavbarSimple() {
 					</Group>
 					<Code fw={700}>v{version}</Code>
 				</Group>
-				{links}
+
+				<NavLink name='Home' icon={IconHome} link='/' />
+				<NavLink name='Town' icon={IconTower} link='/town' />
+				<NavLink name='Realms' icon={IconWorld} link='/realms' />
+				<NavLink name='Gear' icon={IconUserShield} link='/gear' />
+				<NavLink name='Skills' icon={IconAxe} link='/skills' />
 			</Box>
 
 			<Box pt='md' mt='md' className={classes.footer}>
-				<a href='/' className={classes.link}>
-					<IconSettings className={classes.linkIcon} stroke={1.5} />
-					<Text>Settings</Text>
-				</a>
+				<NavLink name='Settings' icon={IconSettings} link='/settings' />
 			</Box>
 		</Stack>
+	)
+}
+
+type NavLinkProps = {
+	name: string
+	icon: Icon
+	link: LinkProps['to']
+}
+
+function NavLink({ name, icon: Icon, link }: NavLinkProps) {
+	return (
+		<Link to={link} className={classes.link}>
+			<Icon className={classes.linkIcon} stroke={1.5} />
+			<Text>{name}</Text>
+		</Link>
 	)
 }
