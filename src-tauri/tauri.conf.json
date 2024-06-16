@@ -11,9 +11,14 @@
   "app": {
     "windows": [
       {
-        "title": "draconic-realms",
-        "width": 800,
-        "height": 600
+        "title": "Draconic Realms",
+        "minWidth": 1280,
+        "width": 1920,
+        "minHeight": 720,
+        "height": 1080,
+        "fullscreen": false,
+        "maximized": true,
+        "resizable": true
       }
     ],
     "security": {
