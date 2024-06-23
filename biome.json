@@ -26,7 +26,8 @@
 				"noUselessCatch": "error",
 				"noUselessThisAlias": "error",
 				"noUselessTypeConstraint": "error",
-				"noWith": "error"
+				"noWith": "error",
+				"noForEach": "off"
 			},
 			"correctness": {
 				"noChildrenProp": "error",
@@ -81,7 +82,7 @@
 				"noDuplicateJsxProps": "error",
 				"noDuplicateObjectKeys": "error",
 				"noDuplicateParameters": "error",
-				"noEmptyBlockStatements": "error",
+				"noEmptyBlockStatements": "warn",
 				"noEmptyInterface": "warn",
 				"noExplicitAny": "error",
 				"noExtraNonNullAssertion": "error",

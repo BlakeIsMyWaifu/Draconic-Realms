@@ -16,6 +16,7 @@ import { Route as SkillsImport } from './routes/skills'
 import { Route as SettingsImport } from './routes/settings'
 import { Route as RealmsImport } from './routes/realms'
 import { Route as GearImport } from './routes/gear'
+import { Route as DevImport } from './routes/dev'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -45,6 +46,11 @@ const GearRoute = GearImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const DevRoute = DevImport.update({
+  path: '/dev',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -59,6 +65,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/dev': {
+      id: '/dev'
+      path: '/dev'
+      fullPath: '/dev'
+      preLoaderRoute: typeof DevImport
       parentRoute: typeof rootRoute
     }
     '/gear': {
@@ -103,6 +116,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
+  DevRoute,
   GearRoute,
   RealmsRoute,
   SettingsRoute,
@@ -119,6 +133,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/dev",
         "/gear",
         "/realms",
         "/settings",
@@ -128,6 +143,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/dev": {
+      "filePath": "dev.tsx"
     },
     "/gear": {
       "filePath": "gear.tsx"

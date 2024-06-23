@@ -1,10 +1,21 @@
 import { Box, Code, Group, Image, Stack, Text } from '@mantine/core'
-import { IconAxe, IconHome, IconSettings, IconTower, IconUserShield, IconWorld, type Icon } from '@tabler/icons-react'
+import {
+	IconAxe,
+	IconHome,
+	IconNotes,
+	IconSettings,
+	IconTower,
+	IconUserShield,
+	IconWorld,
+	type Icon
+} from '@tabler/icons-react'
 import { Link, type LinkProps } from '@tanstack/react-router'
 import { version } from '~/../package.json'
 import classes from './Navbar.module.css'
 
 export default function NavbarSimple() {
+	const isDev = process.env.NODE_ENV === 'development'
+
 	return (
 		<Stack component='nav' p='md' className={classes.navbar}>
 			<Box style={{ flex: 1 }}>
@@ -21,6 +32,7 @@ export default function NavbarSimple() {
 				<NavLink name='Realms' icon={IconWorld} link='/realms' />
 				<NavLink name='Gear' icon={IconUserShield} link='/gear' />
 				<NavLink name='Skills' icon={IconAxe} link='/skills' />
+				{isDev && <NavLink name='Dev' icon={IconNotes} link='/dev' />}
 			</Box>
 
 			<Box pt='md' mt='md' className={classes.footer}>

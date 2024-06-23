@@ -2,6 +2,8 @@
   height: 100vh;
   width: 300px;
   border-right: 1px solid var(--mantine-color-dark-4);
+  position: sticky;
+  top: 0;
 }
 
 .header {
