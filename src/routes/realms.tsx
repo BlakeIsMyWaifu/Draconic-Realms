@@ -1,6 +1,8 @@
-import { Badge, Box, Button, Card, Group, Image, SimpleGrid, Stack, Text, Title } from '@mantine/core'
+import { Badge, Box, Button, Card, Group, Image, Stack, Text, Title } from '@mantine/core'
 import { createFileRoute } from '@tanstack/react-router'
+import CardGrid from '~/components/CardGrid'
 import { getAllRealms, type RealmData } from '~/data/realms'
+import { useRealmStore } from '~/state/useRealmStore'
 import { useSkillsStore } from '~/state/useSkillsStore'
 
 export const Route = createFileRoute('/realms')({
@@ -14,11 +16,11 @@ function Realms() {
 		<Box>
 			<Title>Realms</Title>
 
-			<SimpleGrid cols={6}>
+			<CardGrid>
 				{allRealms.map(realm => {
 					return <Realm key={realm.name} realmData={realm} />
 				})}
-			</SimpleGrid>
+			</CardGrid>
 		</Box>
 	)
 }
@@ -30,6 +32,8 @@ type RealmProps = {
 function Realm({ realmData }: RealmProps) {
 	const riftLevel = useSkillsStore(state => state.skills.arcane.rift.level)
 	const hasLevelRequirement = riftLevel >= realmData.levelRequirement
+
+	const setActive = useRealmStore(state => state.setActive)
 
 	return (
 		<Card>
@@ -44,7 +48,9 @@ function Realm({ realmData }: RealmProps) {
 				</Group>
 				<Text>{realmData.description}</Text>
 
-				<Button disabled={!hasLevelRequirement}>Open Realm</Button>
+				<Button disabled={!hasLevelRequirement} onClick={() => setActive(realmData.name)}>
+					Open Realm
+				</Button>
 			</Card.Section>
 		</Card>
 	)

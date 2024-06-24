@@ -15,6 +15,8 @@ import { Route as TownImport } from './routes/town'
 import { Route as SkillsImport } from './routes/skills'
 import { Route as SettingsImport } from './routes/settings'
 import { Route as RealmsImport } from './routes/realms'
+import { Route as RealmGearImport } from './routes/realmGear'
+import { Route as RealmImport } from './routes/realm'
 import { Route as GearImport } from './routes/gear'
 import { Route as DevImport } from './routes/dev'
 import { Route as IndexImport } from './routes/index'
@@ -38,6 +40,16 @@ const SettingsRoute = SettingsImport.update({
 
 const RealmsRoute = RealmsImport.update({
   path: '/realms',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RealmGearRoute = RealmGearImport.update({
+  path: '/realmGear',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RealmRoute = RealmImport.update({
+  path: '/realm',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,6 +93,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GearImport
       parentRoute: typeof rootRoute
     }
+    '/realm': {
+      id: '/realm'
+      path: '/realm'
+      fullPath: '/realm'
+      preLoaderRoute: typeof RealmImport
+      parentRoute: typeof rootRoute
+    }
+    '/realmGear': {
+      id: '/realmGear'
+      path: '/realmGear'
+      fullPath: '/realmGear'
+      preLoaderRoute: typeof RealmGearImport
+      parentRoute: typeof rootRoute
+    }
     '/realms': {
       id: '/realms'
       path: '/realms'
@@ -118,6 +144,8 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   DevRoute,
   GearRoute,
+  RealmRoute,
+  RealmGearRoute,
   RealmsRoute,
   SettingsRoute,
   SkillsRoute,
@@ -135,6 +163,8 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/dev",
         "/gear",
+        "/realm",
+        "/realmGear",
         "/realms",
         "/settings",
         "/skills",
@@ -149,6 +179,12 @@ export const routeTree = rootRoute.addChildren({
     },
     "/gear": {
       "filePath": "gear.tsx"
+    },
+    "/realm": {
+      "filePath": "realm.tsx"
+    },
+    "/realmGear": {
+      "filePath": "realmGear.tsx"
     },
     "/realms": {
       "filePath": "realms.tsx"
