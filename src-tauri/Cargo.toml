@@ -1,8 +1,8 @@
 [package]
 name = "draconic-realms"
 version = "0.0.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "Draconic Realms"
+authors = ["BlakeIsMyWaifu"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
