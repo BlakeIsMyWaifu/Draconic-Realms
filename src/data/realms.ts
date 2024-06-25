@@ -32,6 +32,8 @@ export type ResourceNode = {
 	name: string
 	/** Name of image in /public/resources/*.png */
 	image: string
+	/** Time in seconds per harvest attempt */
+	time: number
 	/** Skills that are required to farm the resource node */
 	requirements: SkillRequirement[]
 	/** Resources that are gained after a successful harvest */
@@ -52,8 +54,6 @@ type SkillRequirement = {
 }[Skill]
 
 type Harvest = {
-	/** Time in seconds per harvest attempt */
-	time: number
 	/** Resources received on successful harvest */
 	resource: HarvestResource[]
 }
@@ -82,6 +82,7 @@ const realmsArray = [
 					{
 						name: 'Tree',
 						image: 'tree',
+						time: 1,
 						requirements: [
 							{
 								skill: 'survival',
@@ -91,7 +92,6 @@ const realmsArray = [
 						],
 						resources: [
 							{
-								time: 1,
 								resource: [
 									{
 										amount: [1, 1],
@@ -106,6 +106,7 @@ const realmsArray = [
 					{
 						name: 'Berry Bush',
 						image: 'berry',
+						time: 5,
 						requirements: [
 							{
 								skill: 'survival',
@@ -115,7 +116,6 @@ const realmsArray = [
 						],
 						resources: [
 							{
-								time: 5,
 								resource: [
 									{
 										amount: [2, 6],
@@ -135,6 +135,7 @@ const realmsArray = [
 					{
 						name: 'Berry Bush',
 						image: 'berry',
+						time: 5,
 						requirements: [
 							{
 								skill: 'survival',
@@ -144,7 +145,6 @@ const realmsArray = [
 						],
 						resources: [
 							{
-								time: 5,
 								resource: [
 									{
 										amount: [2, 6],
@@ -174,6 +174,7 @@ const realmsArray = [
 					{
 						name: 'Tree',
 						image: 'tree',
+						time: 1,
 						requirements: [
 							{
 								skill: 'survival',
@@ -183,7 +184,6 @@ const realmsArray = [
 						],
 						resources: [
 							{
-								time: 1,
 								resource: [
 									{
 										amount: [1, 1],
@@ -203,6 +203,7 @@ const realmsArray = [
 					{
 						name: 'Berry Bush',
 						image: 'berry',
+						time: 5,
 						requirements: [
 							{
 								skill: 'survival',
@@ -212,7 +213,6 @@ const realmsArray = [
 						],
 						resources: [
 							{
-								time: 5,
 								resource: [
 									{
 										amount: [2, 6],
@@ -242,6 +242,7 @@ const realmsArray = [
 					{
 						name: 'Tree',
 						image: 'tree',
+						time: 1,
 						requirements: [
 							{
 								skill: 'survival',
@@ -251,7 +252,6 @@ const realmsArray = [
 						],
 						resources: [
 							{
-								time: 1,
 								resource: [
 									{
 										amount: [1, 1],
@@ -271,6 +271,7 @@ const realmsArray = [
 					{
 						name: 'Berry Bush',
 						image: 'berry',
+						time: 5,
 						requirements: [
 							{
 								skill: 'survival',
@@ -280,7 +281,6 @@ const realmsArray = [
 						],
 						resources: [
 							{
-								time: 5,
 								resource: [
 									{
 										amount: [2, 6],
@@ -303,7 +303,7 @@ realmsArray.forEach(realm => realmMap.set(realm.name, realm))
 
 export const getRealm = (realm: RealmName) => {
 	if (!realmMap.has(realm)) throw new Error(`Missing Realm: ${realm}`)
-	// biome-ignore lint/style/noNonNullAssertion: <explanation>
+	// biome-ignore lint/style/noNonNullAssertion: <Every realm is in the map>
 	return realmMap.get(realm)!
 }
 

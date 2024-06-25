@@ -51,7 +51,7 @@ const createRealmAction: Slice<RealmStore, RealmAction> = (set, get) => ({
 	setInactive: () => {
 		if (!get().active) return
 
-		set({ active: false }, ...actionName('setInactive'))
+		set({ ...realmState }, ...actionName('setInactive'))
 	},
 
 	toggleActivity: resourceNode => {
