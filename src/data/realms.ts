@@ -27,9 +27,11 @@ type Area = {
 	resourceNodes: ResourceNode[]
 }
 
-type ResourceNode = {
-	/** Name of node, doesn't need to be unique */
+export type ResourceNode = {
+	/** Name of node, must be unique to the area */
 	name: string
+	/** Name of image in /public/resources/*.png */
+	image: string
 	/** Skills that are required to farm the resource node */
 	requirements: SkillRequirement[]
 	/** Resources that are gained after a successful harvest */
@@ -79,6 +81,7 @@ const realmsArray = [
 				resourceNodes: [
 					{
 						name: 'Tree',
+						image: 'tree',
 						requirements: [
 							{
 								skill: 'survival',
@@ -99,6 +102,30 @@ const realmsArray = [
 							}
 						],
 						successChance: 50
+					},
+					{
+						name: 'Berry Bush',
+						image: 'berry',
+						requirements: [
+							{
+								skill: 'survival',
+								subskill: 'foraging',
+								levelRequirement: 1
+							}
+						],
+						resources: [
+							{
+								time: 5,
+								resource: [
+									{
+										amount: [2, 6],
+										chance: 100,
+										type: null
+									}
+								]
+							}
+						],
+						successChance: 80
 					}
 				]
 			},
@@ -107,6 +134,7 @@ const realmsArray = [
 				resourceNodes: [
 					{
 						name: 'Berry Bush',
+						image: 'berry',
 						requirements: [
 							{
 								skill: 'survival',
@@ -145,6 +173,7 @@ const realmsArray = [
 				resourceNodes: [
 					{
 						name: 'Tree',
+						image: 'tree',
 						requirements: [
 							{
 								skill: 'survival',
@@ -173,6 +202,7 @@ const realmsArray = [
 				resourceNodes: [
 					{
 						name: 'Berry Bush',
+						image: 'berry',
 						requirements: [
 							{
 								skill: 'survival',
@@ -211,6 +241,7 @@ const realmsArray = [
 				resourceNodes: [
 					{
 						name: 'Tree',
+						image: 'tree',
 						requirements: [
 							{
 								skill: 'survival',
@@ -239,6 +270,7 @@ const realmsArray = [
 				resourceNodes: [
 					{
 						name: 'Berry Bush',
+						image: 'berry',
 						requirements: [
 							{
 								skill: 'survival',

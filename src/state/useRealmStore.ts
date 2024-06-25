@@ -1,19 +1,25 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import { getRealm, type RealmName } from '~/data/realms'
+import { getAllRealms, getRealm, type RealmName, type ResourceNode } from '~/data/realms'
 import { router } from '~/main'
 import { createActionName, persistStoreName, type Slice } from './storeTypes'
 
 type RealmState = {
 	active: boolean
+	realmName: RealmName
 	timeRemaining: number
 	currentArea: number
+	activityLimit: number
+	activity: Record<string, ResourceNode>
 }
 
 const realmState: RealmState = {
 	active: false,
+	realmName: getAllRealms()[0].name,
 	timeRemaining: 0,
-	currentArea: 0
+	currentArea: 0,
+	activityLimit: 1,
+	activity: {}
 }
 
 const actionName = createActionName<RealmAction>('realm')
@@ -21,6 +27,8 @@ const actionName = createActionName<RealmAction>('realm')
 type RealmAction = {
 	setActive: (realm: RealmName) => void
 	setInactive: () => void
+
+	toggleActivity: (resourceNode: ResourceNode) => void
 }
 
 const createRealmAction: Slice<RealmStore, RealmAction> = (set, get) => ({
@@ -43,7 +51,28 @@ const createRealmAction: Slice<RealmStore, RealmAction> = (set, get) => ({
 	setInactive: () => {
 		if (!get().active) return
 
-		set({ ...realmState }, ...actionName('setInactive'))
+		set({ active: false }, ...actionName('setInactive'))
+	},
+
+	toggleActivity: resourceNode => {
+		if (!get().active) return
+
+		if (get().activity[resourceNode.name]) {
+			const { [resourceNode.name]: _toRemove, ...activity } = get().activity
+			set({ activity }, ...actionName('toggleActivity/remove'))
+		} else {
+			if (get().activityLimit <= Object.keys(get().activity).length) return
+
+			set(
+				state => ({
+					activity: {
+						...state.activity,
+						[resourceNode.name]: resourceNode
+					}
+				}),
+				...actionName('toggleActivity/add')
+			)
+		}
 	}
 })
 

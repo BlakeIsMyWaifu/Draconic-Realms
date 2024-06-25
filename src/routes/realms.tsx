@@ -38,7 +38,7 @@ function Realm({ realmData }: RealmProps) {
 	return (
 		<Card>
 			<Card.Section>
-				<Image src={`/public/realms/${realmData.image}.png`} />
+				<Image src={`/realms/${realmData.image}.png`} />
 			</Card.Section>
 
 			<Card.Section p='md' component={Stack}>
