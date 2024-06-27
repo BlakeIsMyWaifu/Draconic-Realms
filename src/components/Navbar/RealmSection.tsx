@@ -1,15 +1,36 @@
-import { Group, Image, Stack } from '@mantine/core'
+import { Box, Group, Image, Stack } from '@mantine/core'
 import classes from '~/components/Navbar/Navbar.module.css'
 import TimedProgress from '~/components/TimedProgress'
 import type { ResourceNode } from '~/data/realms'
 import { useRealmStore } from '~/state/useRealmStore'
+import CountdownProgress from '../CountdownProgress'
 
-export default function ActivitySection() {
+export default function RealmSection() {
+	return (
+		<>
+			<TimeRemaining />
+			<ActivitySection />
+		</>
+	)
+}
+
+function TimeRemaining() {
+	const time = useRealmStore(state => state.time)
+	const leaveRealm = useRealmStore(state => state.leaveRealm)
+
+	return (
+		<Box className={classes.realmSection}>
+			<CountdownProgress time={time} label='Time Remaining - {{countdown}}' onComplete={leaveRealm} />
+		</Box>
+	)
+}
+
+function ActivitySection() {
 	const activity = useRealmStore(state => state.activity)
 	const activityList = Object.values(activity)
 
 	return activityList.length ? (
-		<Stack className={classes.activitySection}>
+		<Stack className={classes.realmSection}>
 			{activityList.map(resource => (
 				<Activity key={resource.name} resource={resource} />
 			))}

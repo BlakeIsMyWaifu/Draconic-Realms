@@ -2,11 +2,14 @@ import { Input, Progress, type MantineStyleProp } from '@mantine/core'
 import { useInterval } from '@mantine/hooks'
 import { useEffect, useMemo, useState } from 'react'
 
-interface TimedProgressProps {
+type TimedProgressProps = {
 	/** Time in seconds */
 	time: number
+	/** Label added to the progression bar */
 	label?: string
+	/** Ran once when the countdown finishes */
 	onComplete?: () => void
+	/** Additional styles added to the wrapper */
 	style?: MantineStyleProp
 }
 
@@ -24,7 +27,7 @@ export default function TimedProgress({ time, label = '', onComplete, style = {}
 	useEffect(() => {
 		start()
 		return stop
-	}, [start, stop, timeInSeconds])
+	}, [timeInSeconds])
 
 	useEffect(() => {
 		if (value >= 100) {

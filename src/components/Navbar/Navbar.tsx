@@ -12,7 +12,7 @@ import {
 import { Link, type LinkProps } from '@tanstack/react-router'
 import { version } from '~/../package.json'
 import { useRealmStore } from '~/state/useRealmStore'
-import ActivitySection from './ActivitySection'
+import RealmSection from './RealmSection'
 import classes from './Navbar.module.css'
 
 const mainPages: NavLinkProps[] = [
@@ -50,7 +50,7 @@ export default function NavbarSimple() {
 				})}
 				{isDev && <NavLink name='Dev' icon={IconNotes} link='/dev' />}
 
-				{activeRealm && <ActivitySection />}
+				{activeRealm && <RealmSection />}
 			</Box>
 
 			<Box pt='md' mt='md' className={classes.footer}>

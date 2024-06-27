@@ -7,7 +7,7 @@ import { createActionName, persistStoreName, type Slice } from './storeTypes'
 type RealmState = {
 	active: boolean
 	realmName: RealmName
-	timeRemaining: number
+	time: [start: number, end: number]
 	currentArea: number
 	activityLimit: number
 	activity: Record<string, ResourceNode>
@@ -16,7 +16,7 @@ type RealmState = {
 const realmState: RealmState = {
 	active: false,
 	realmName: getAllRealms()[0].name,
-	timeRemaining: 0,
+	time: [0, 0],
 	currentArea: 0,
 	activityLimit: 1,
 	activity: {}
@@ -25,14 +25,14 @@ const realmState: RealmState = {
 const actionName = createActionName<RealmAction>('realm')
 
 type RealmAction = {
-	setActive: (realm: RealmName) => void
-	setInactive: () => void
+	openRealm: (realm: RealmName) => void
+	leaveRealm: () => void
 
 	toggleActivity: (resourceNode: ResourceNode) => void
 }
 
 const createRealmAction: Slice<RealmStore, RealmAction> = (set, get) => ({
-	setActive: realmName => {
+	openRealm: realmName => {
 		if (get().active) return
 
 		router.navigate({ to: '/realm' })
@@ -42,16 +42,18 @@ const createRealmAction: Slice<RealmStore, RealmAction> = (set, get) => ({
 		set(
 			{
 				active: true,
-				timeRemaining: realmData.time
+				time: [+new Date(), +new Date() + realmData.time * 1000]
 			},
-			...actionName('setActive')
+			...actionName('openRealm')
 		)
 	},
 
-	setInactive: () => {
+	leaveRealm: () => {
 		if (!get().active) return
 
-		set({ ...realmState }, ...actionName('setInactive'))
+		router.navigate({ to: '/' })
+
+		set({ ...realmState }, ...actionName('leaveRealm'))
 	},
 
 	toggleActivity: resourceNode => {

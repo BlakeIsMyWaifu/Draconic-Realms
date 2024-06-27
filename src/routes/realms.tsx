@@ -33,7 +33,7 @@ function Realm({ realmData }: RealmProps) {
 	const riftLevel = useSkillsStore(state => state.skills.arcane.rift.level)
 	const hasLevelRequirement = riftLevel >= realmData.levelRequirement
 
-	const setActive = useRealmStore(state => state.setActive)
+	const openRealm = useRealmStore(state => state.openRealm)
 
 	return (
 		<Card>
@@ -48,7 +48,7 @@ function Realm({ realmData }: RealmProps) {
 				</Group>
 				<Text>{realmData.description}</Text>
 
-				<Button disabled={!hasLevelRequirement} onClick={() => setActive(realmData.name)}>
+				<Button disabled={!hasLevelRequirement} onClick={() => openRealm(realmData.name)}>
 					Open Realm
 				</Button>
 			</Card.Section>

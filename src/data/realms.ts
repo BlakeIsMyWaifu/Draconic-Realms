@@ -73,7 +73,7 @@ const realmsArray = [
 		image: 'temp',
 		description: 'Temp description of the realm',
 		levelRequirement: 1,
-		time: 1 * 60,
+		time: 1.5 * 60,
 		xp: 50,
 		areas: [
 			{
