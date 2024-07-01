@@ -1,9 +1,9 @@
 import { Box, Group, Image, Stack } from '@mantine/core'
+import CountdownProgress from '~/components/CountdownProgress'
 import classes from '~/components/Navbar/Navbar.module.css'
 import TimedProgress from '~/components/TimedProgress'
 import type { ResourceNode } from '~/data/realms'
 import { useRealmStore } from '~/state/useRealmStore'
-import CountdownProgress from '../CountdownProgress'
 
 export default function RealmSection() {
 	return (

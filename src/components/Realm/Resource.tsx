@@ -1,4 +1,4 @@
-import { Button, Card, Image, Stack, Text } from '@mantine/core'
+import Tile from '~/components/Tile'
 import type { ResourceNode } from '~/data/realms'
 import { useRealmStore } from '~/state/useRealmStore'
 
@@ -13,22 +13,15 @@ export default function Resource({ resource }: ResourceProp) {
 	const activityLimit = useRealmStore(state => state.activityLimit)
 
 	return (
-		<Card>
-			<Card.Section>
-				<Image src={`/resources/${resource.image}.png`} />
-			</Card.Section>
-
-			<Card.Section p='md' component={Stack}>
-				<Text fw={500}>{resource.name}</Text>
-
-				<Button
-					color={isActive ? 'red' : 'green'}
-					disabled={activityLimit <= Object.keys(activity).length && !isActive}
-					onClick={() => toggleActivity(resource)}
-				>
-					{isActive ? 'Stop' : 'Harvest'}
-				</Button>
-			</Card.Section>
-		</Card>
+		<Tile
+			image={`/resources/${resource.image}`}
+			title={resource.name}
+			button={{
+				text: isActive ? 'Stop' : 'Harvest',
+				color: isActive ? 'red' : 'green',
+				disabled: activityLimit <= Object.keys(activity).length && !isActive,
+				onClick: () => toggleActivity(resource)
+			}}
+		/>
 	)
 }

@@ -1,12 +1,12 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import { getAllRealms, getRealm, type RealmName, type ResourceNode } from '~/data/realms'
+import { getAllRealms, getRealm, type RealmData, type RealmName, type ResourceNode } from '~/data/realms'
 import { router } from '~/main'
 import { createActionName, persistStoreName, type Slice } from './storeTypes'
 
 type RealmState = {
 	active: boolean
-	realmName: RealmName
+	realmData: RealmData
 	time: [start: number, end: number]
 	currentArea: number
 	activityLimit: number
@@ -15,7 +15,7 @@ type RealmState = {
 
 const realmState: RealmState = {
 	active: false,
-	realmName: getAllRealms()[0].name,
+	realmData: getAllRealms()[0],
 	time: [0, 0],
 	currentArea: 0,
 	activityLimit: 1,
@@ -42,8 +42,12 @@ const createRealmAction: Slice<RealmStore, RealmAction> = (set, get) => ({
 		set(
 			{
 				active: true,
-				time: [+new Date(), +new Date() + realmData.time * 1000]
-			},
+				realmData,
+				time: [+new Date(), +new Date() + realmData.time * 1000],
+				currentArea: 0,
+				activityLimit: 1,
+				activity: {}
+			} satisfies RealmState,
 			...actionName('openRealm')
 		)
 	},

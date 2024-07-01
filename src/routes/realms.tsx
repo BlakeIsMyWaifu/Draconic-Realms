@@ -1,6 +1,7 @@
-import { Badge, Box, Button, Card, Group, Image, Stack, Text, Title } from '@mantine/core'
+import { Stack, Title } from '@mantine/core'
 import { createFileRoute } from '@tanstack/react-router'
-import CardGrid from '~/components/CardGrid'
+import Tile from '~/components/Tile'
+import TileGrid from '~/components/TileGrid'
 import { getAllRealms, type RealmData } from '~/data/realms'
 import { useRealmStore } from '~/state/useRealmStore'
 import { useSkillsStore } from '~/state/useSkillsStore'
@@ -13,15 +14,15 @@ function Realms() {
 	const allRealms = getAllRealms()
 
 	return (
-		<Box>
+		<Stack>
 			<Title>Realms</Title>
 
-			<CardGrid>
+			<TileGrid>
 				{allRealms.map(realm => {
 					return <Realm key={realm.name} realmData={realm} />
 				})}
-			</CardGrid>
-		</Box>
+			</TileGrid>
+		</Stack>
 	)
 }
 
@@ -36,22 +37,19 @@ function Realm({ realmData }: RealmProps) {
 	const openRealm = useRealmStore(state => state.openRealm)
 
 	return (
-		<Card>
-			<Card.Section>
-				<Image src={`/realms/${realmData.image}.png`} />
-			</Card.Section>
-
-			<Card.Section p='md' component={Stack}>
-				<Group justify='space-between'>
-					<Text fw={500}>{realmData.name}</Text>
-					<Badge color={hasLevelRequirement ? 'green' : 'dark.4'}>Level {realmData.levelRequirement}</Badge>
-				</Group>
-				<Text>{realmData.description}</Text>
-
-				<Button disabled={!hasLevelRequirement} onClick={() => openRealm(realmData.name)}>
-					Open Realm
-				</Button>
-			</Card.Section>
-		</Card>
+		<Tile
+			image={`/realms/${realmData.image}`}
+			title={realmData.name}
+			badge={{
+				text: `Level ${realmData.levelRequirement}`,
+				color: hasLevelRequirement ? 'green' : 'dark.4'
+			}}
+			description={realmData.description}
+			button={{
+				text: 'Open Realm',
+				disabled: !hasLevelRequirement,
+				onClick: () => openRealm(realmData.name)
+			}}
+		/>
 	)
 }

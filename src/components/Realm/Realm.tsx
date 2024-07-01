@@ -1,23 +1,26 @@
 import { Stack, Title } from '@mantine/core'
-import CardGrid from '~/components/CardGrid'
 import Resource from '~/components/Realm/Resource'
-import { getRealm } from '~/data/realms'
+import TileGrid from '~/components/TileGrid'
 import { useRealmStore } from '~/state/useRealmStore'
+import NextArea from './NextArea'
+import LeaveRealm from './LeaveRealm'
 
 export default function Realm() {
-	const realmName = useRealmStore(state => state.realmName)
-	const realmData = getRealm(realmName)
-
+	const realmData = useRealmStore(state => state.realmData)
 	const currentArea = useRealmStore(state => state.currentArea)
 
 	return (
 		<Stack>
-			<Title>Realm - {realmName}</Title>
-			<CardGrid>
+			<Title>Realm - {realmData.name}</Title>
+			<TileGrid title='Resources'>
 				{realmData.areas[currentArea].resourceNodes.map(resource => {
 					return <Resource key={resource.name} resource={resource} />
 				})}
-			</CardGrid>
+			</TileGrid>
+			<TileGrid title='Travel'>
+				<NextArea />
+				<LeaveRealm />
+			</TileGrid>
 		</Stack>
 	)
 }
